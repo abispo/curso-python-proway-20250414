@@ -1,5 +1,7 @@
 # Utilizamos o caractere '#' quando queremos criar um comentário. Comentários são ignorados pelo interpretador.
 
+# Todo arquivo Python termina com a extensão .py
+
 # Por boas práticas, caso o nosso script seja executado diretamente pelo interpretador, colocamos a expressão abaixo.
 # Uma expressão em Python é um conjunto de instruções que retornam um valor. No caso abaixo, o valor retornado é do tipo bool (booleano)
 # Sempre que utilizamos laços de condição e de repetição, estamos criando um novo bloco de código. No Python, sempre que criarmos um novo bloco, é obrigatório seguir as regras de identação da linguagem. Por padrão, cada novo bloco de código tem um espaçamento de 4 espaços.
