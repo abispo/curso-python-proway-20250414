@@ -27,3 +27,8 @@ if __name__ == "__main__":
     curso = "Java"
     print("Bem vindo ao curso de {}, {}".format(curso, "Amanda"))
     # Como tudo em Python são objetos, podemos utilizar os métodos desses objetos. No caso acima, estamos utilizando o método format() para substituir o conjunto de chaves ({}) pelos valores passados para o método, na ordem em que aparecem.
+
+    # Maneira moderna 2
+    curso = "PHP"
+    print(f"Bem vindo ao curso de {curso} na Proway.")
+    # Acima utilizamos um padrão de string chamado f-string, onde basicamente colocamos o nome das variáveis entre as chaves, fazendo assim que o seu valor seja lido. É muito importante que comecemos a string com um 'f' fora das aspas.
