@@ -35,10 +35,63 @@ if __name__ == "__main__":
     # Caso queiramos retornar um valor padrão ao invés do nome, passamos como segundo parâmetro da função.
     print(joao.get("tipo_sanguineo", "A chave 'tipo_sanguineo' não existe"))
 
-    # Atualizando um dicionário
+    # Atualizando um dicionário (Modificando, adicionando e removendo itens)
+    # Podemos atualizar um dicionário de diferentes maneiras
 
-    # Adicionando e removendo itens de um dicionário
+    # Abaixo estamos inserindo um novo par chave: valor (tipo_sanguineo = A+) e atualizando o valor da chave "idade" para 25
+    jose["tipo_sanguineo"] = "A+"
+    jose["idade"] = 25
+    print(jose)
+
+    # Podemos ter o mesmo resultado utilizando o método update()
+    joao.update({"tipo_sanguineo": "B-"})
+    joao.update({"idade": 28})
+    print(joao)
+
+    # Vamos inserir mais 2 pares chave: valor
+    joao.update({"genero": "M", "status": "Solteiro"})
+
+    # Agora vamos remover essas chaves criadas. Podemos utilizar 2 métodos para isso:
+
+    # O método pop remove um par chave: valor de acordo com o nome da chave
+    print(joao)
+    print(joao.pop("status"))
+
+    # O método popitem() remove o último par chave: valor inserido
+    # Remove o par genero: M
+    joao.popitem()
+    print(joao)
+
+    print('*' * 20, " LAÇO FOR ", '*' * 20)
 
     # Iterando sobre dicionários utilizando for loop
 
+    for item in joao:
+        print(item)
+
+    # Por padrão, o laço for retorna as chaves do dicionário (internamente chama o método keys()). Porém, podemos utilizar alguns métodos para retornar os valores ou até mesmo os pares chave: valor
+
+    # Se queremos apenas os valores do dicionário, utilizamos o método values()
+    for item in joao.values():
+        print(item)
+
+    # Finalmente, o método items() retorna o par chave: valor como uma tupla
+    for chave, valor in jose.items():
+        print("{}: {}".format(chave, valor))
+
+    print('*' * 20, " CÓPIA DE DICIONÁRIOS ", '*' * 20)
+    
+
     # Cópia de dicionários
+    # Dicionários seguem o mesmo princípio de listas: São variáveis que apontam pra uma posição de memória, e que caso sejam igualadas, podem alterar o valor uma da outra. Pra contornar isso, podemos utilizar o método copy ou a função dict()
+
+    joaozinho = joao.copy()
+    joaozinho.update({"nome": "João Júnior", "idade": 8, "tipo_sanguineo": "O"})
+    print(joao, joaozinho)
+
+    zezinho = dict(jose)
+    zezinho.update({"nome": "José Júnior", "idade": 7, "tipo_sanguineo": "O+"})
+    print(jose, zezinho)
+
+    # Limpando os dicionários
+    joao.clear()
