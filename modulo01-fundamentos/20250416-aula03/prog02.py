@@ -4,7 +4,7 @@ Funções (ou Procedures)
 Também podemos passar valores para as funções, valores esses que serão acessados dentro delas. Para isso utilizamos os parâmetros
 """
 
-from utils import lista_pesos_e_alturas
+from utils import lista_pesos_e_alturas, dicionarios_pesos_e_alturas
 
 # Abaixo indicamos 2 parâmetros: peso e altura
 def calculo_imc(peso: float, altura: float) -> float:
@@ -34,3 +34,7 @@ if __name__ == "__main__":
 
     for item in lista_pesos_e_alturas:
         print(f"{calculo_imc(*item):.1f}")
+
+    # Também podemos utilizar a mesma abordagem para dicionários:
+    for item in dicionarios_pesos_e_alturas:
+        print(f"{calculo_imc(**item):.1f}")
