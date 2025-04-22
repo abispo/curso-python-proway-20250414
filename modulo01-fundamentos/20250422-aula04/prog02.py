@@ -24,10 +24,18 @@ if __name__ == "__main__":
         os.mkdir(temp_dir)
         # A função mkdir cria um novo diretório no sistema de arquivos.
 
+    # Aqui abrimos o arquivo lista.txt no modo somente escrita
     with open(os.path.join(temp_dir, "lista.txt"), mode="w") as arquivo:
         print("O arquivo {}".format("está fechado" if arquivo.closed else "está aberto."))
         arquivo.write("Banana\n")
-        arquivo.write("Abacate")
+        arquivo.write("Abacate\n")
+        
+        itens = ["Tomate\n", "Alface\n", "Fruta", " do ", "conde\n"]
+        arquivo.writelines(itens)
 
     print("O arquivo {}".format("está fechado" if arquivo.closed else "está aberto."))
-         
+    
+    # Por fim, abrimos novamente o arquivo, porém no modo "append", onde o conteúdo será adicionado a partir do final do arquivo
+    with open(os.path.join(temp_dir, "lista.txt"), mode="a", encoding="utf-8") as arquivo:
+        arquivo.write("Abacaxi\n")
+        arquivo.writelines(["Manga\n", "Limão\n", "Maçã"])
