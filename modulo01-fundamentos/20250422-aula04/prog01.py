@@ -58,4 +58,4 @@ if __name__ == "__main__":
     # Acima, estamos reposicionando o cursor na posição 0 do arquivo. Assim, podemos lê-lo novamente
 
     print(arquivo.readlines())
-    # Mostramos novamente todo o conteúdo do arquivo,
+    # Mostramos novamente todo o conteúdo do arquivo
