@@ -59,3 +59,10 @@ if __name__ == "__main__":
 
     print(arquivo.readlines())
     # Mostramos novamente todo o conteúdo do arquivo
+
+    print("Estado do arquivo: {}".format(arquivo.closed))
+
+    arquivo.close()
+    # É muito importante sempre fecharmos os arquivos que abrimos. No módulo de escrita de arquivo, vamos ver uma maneira de fechar o arquivo automaticamente
+
+    print("Estado do arquivo: {}".format(arquivo.closed))
