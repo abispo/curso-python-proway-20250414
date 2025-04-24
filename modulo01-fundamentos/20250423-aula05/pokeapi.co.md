@@ -12,6 +12,7 @@ Criar um programa que irá solicitar ao usuário o nome de um pokemon. Depois de
 Por exemplo, se o pokemon escolhido fosse o Pikachu:
 
 ```
+# Chamada ao endpoint https://pokeapi.co/api/v2/pokemon/pikachu
 # pikachu.txt
 
 Habilidades: static, lightning-rod
