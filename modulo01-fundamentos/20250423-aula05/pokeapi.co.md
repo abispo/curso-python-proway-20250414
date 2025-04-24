@@ -1,7 +1,7 @@
 # Buscar informações da API Pokémon
 Criar um programa que irá solicitar ao usuário o nome de um pokemon. Depois de solicitado, você irá fazer uma chamada a API, e salvar as seguintes informações em um arquivo texto com o nome do pokemon (por exemplo, pikachu.txt):
 
-* A lista de habilidades (chave `habilities`)
+* A lista de habilidades (chave `abilities`)
 * Experiência base (chave `base_experience`)
 * O id (chave `id`)
 * O nome (chave `name`)
