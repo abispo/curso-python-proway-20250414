@@ -8,3 +8,5 @@ Criamos um virtualenv com o comando `python -m venv [nome_da_pasta]`. É recomen
 ## Biblioteca requests (requisições HTTP)
 
 ## Capturando exceções com try except
+
+## Prática de uso da biblioteca requests (utilizando APIs públicas)
