@@ -1,0 +1,8 @@
+
+Habilidades: blaze, solar-power
+Experiência base: 62
+Id: 4
+Nome: charmander
+Altura: 6
+Peso: 85
+Tipos: fire

@@ -1,0 +1,8 @@
+
+Habilidades: limber, imposter
+Experiência base: 101
+Id: 132
+Nome: ditto
+Altura: 3
+Peso: 40
+Tipos: normal
