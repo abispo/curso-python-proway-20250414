@@ -6,19 +6,25 @@ Trabalhando com MySql utilizando a biblioteca PyMysql
 
 import json
 import os
+import shutil
+
+from dotenv import load_dotenv
 
 import pymysql.cursors
 import requests
+
+# A função load_dotenv() vai carregar o arquivo .env, e transformar as constantes em variáveis de ambiente. Caso queiramos mudar o nome do arquivo, temos que informar como parâmetro dessa função.
+load_dotenv()
 
 if __name__ == "__main__":
 
     # Criando a conexão informando direto a connection string
     connection = pymysql.connect(
-        user="root",
-        password="admin",
-        host="127.0.0.1",
-        database="pesquisas",
-        port=3306,
+        user=os.getenv("USER"),
+        password=os.getenv("PASSWORD"),
+        host=os.getenv("HOST"),
+        database=os.getenv("DATABASE"),
+        port=int(os.getenv("PORT")),
         cursorclass=pymysql.cursors.DictCursor
     )
     
@@ -97,3 +103,27 @@ if __name__ == "__main__":
                     args=(question_id, text, votes),
                 )
                 connection.commit()
+
+    # Para consultar os dados nas tabelas, podemos utilizar 3 métodos:
+
+    # fetchone() -> Retorna apenas 1 registro da consulta. Caso a consulta não retorne dados, o método retorna None
+    sql = "SELECT * FROM tb_perguntas;"
+    cursor.execute(sql)
+
+    print("{}".format(cursor.fetchone()))
+
+    # fetchmany(size) -> Retorna a quantidade de registros indicados no parâmetro size. Caso a consulta não retorne nada ou o cursor já esteja no final do resultado, será retornada uma lista vazia
+    print("{}".format(cursor.fetchmany(10)))
+
+    # fetchall() -> Retorna todos os registros restantes da consulta. Caso não existam mais registros a serem exibidos, retorna uma lista vazia
+    print("{}".format(cursor.fetchall()))
+
+    # Como o cursor chegou no final do resultado, não há mais registros a serem exibidos.
+    print("{}".format(cursor.fetchall()))
+
+    # Fechando a conexão e excluindo o arquivo temporário
+    cursor.close()
+    connection.close()
+
+    # Remoção do diretório temporário
+    shutil.rmtree(tmp_dir)
