@@ -196,4 +196,12 @@ INNER JOIN tb_postagens_categorias tpc
 ON tp.id = tpc.postagem_id 
 INNER JOIN tb_categorias tc 
 ON tpc.categoria_id = tc.id 
-WHERE tc.id = 6;
+WHERE tc.id = 1;
+
+-- DESAFIO
+-- Criar a tabela tb_comentarios, que deve ter a seguinte estrutura
+-- id
+-- usuario_id (usuario_id que fez o comentário)
+-- postagem_id (id da postagem a qual pertence esse comentário)
+-- comentario (texto)
+-- data_hora (data/hora que o comentário foi realizado, pode seguir o mesmo padrão da tabela tb_postagens)
