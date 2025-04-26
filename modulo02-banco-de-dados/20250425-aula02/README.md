@@ -200,8 +200,8 @@ WHERE tc.id = 1;
 
 -- DESAFIO
 -- Criar a tabela tb_comentarios, que deve ter a seguinte estrutura
--- id
--- usuario_id (usuario_id que fez o comentário)
--- postagem_id (id da postagem a qual pertence esse comentário)
+-- id (chave primaria auto incremento)
+-- usuario_id (usuario_id que fez o comentário, relacionar com a tb_usuarios)
+-- postagem_id (id da postagem a qual pertence esse comentário, relacionar com a tb_postagens)
 -- comentario (texto)
 -- data_hora (data/hora que o comentário foi realizado, pode seguir o mesmo padrão da tabela tb_postagens)
