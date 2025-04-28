@@ -35,6 +35,11 @@ Ou seja, para cada registro na tabela de usuarios, deve existir 1 e apenas 1 reg
 na tabela de perfis. Pra essa relação, teremos um relacionamento 1:1
 */
 
+-- Criação da base de dados
+CREATE DATABASE IF NOT EXISTS modulo02_python_relacionamentos;
+
+USE modulo02_python_relacionamentos;
+
 -- Criação da tabela de usuários
 CREATE TABLE IF NOT EXISTS tb_usuarios(
 	# Uma chave primária é definida como uma coluna que não terá valores repetidos
@@ -197,6 +202,8 @@ ON tp.id = tpc.postagem_id
 INNER JOIN tb_categorias tc 
 ON tpc.categoria_id = tc.id 
 WHERE tc.id = 1;
+
+-- https://miro.medium.com/v2/resize:fit:991/0*Nrjozs1i0XIiACKd.png
 
 -- DESAFIO
 -- Criar a tabela tb_comentarios, que deve ter a seguinte estrutura
