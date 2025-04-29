@@ -20,6 +20,41 @@ class Pokemon:
         self._type = type
         self._health = health
 
+        # Para criarmos um método, utilizamos a palavra reservada def, e em seguida o nome do método/função
         def attack(self):
+            # Como dito anteriormente, todos os métodos de instância, obrigatoriamente devem começar com o atributo self.
             print(f"{self._name} attacks!")
+
+        def dodge(self):
+            print(f"{self._name} dodges!")
+
+        def evolve(self):
+            print(f"{self._name} evolves!")
         
+        # Para alterar os atributos de um objeto instanciado, podemos utilizar 2 abordagens:
+
+        # 1) Utilizar métodos getters e setters
+        def set_name(self: Pokemon, new_name: str) -> None:
+            self._name = new_name
+
+        def get_name(self: Pokemon) -> str:
+            return self._name
+        
+        # 2) Utilizar o decorator @property
+        # Aqui criamos o "getter"
+        @property
+        def type(self: Pokemon) -> str:
+            return self._type
+        
+        # Aqui criamos o "setter"
+        @type.setter
+        def type(self: Pokemon, new_type: str) -> None:
+            self._type = new_type
+
+        @property
+        def health(self: Pokemon) -> int:
+            return self._health
+        
+        @health.setter
+        def health(self: Pokemon, new_health: int) -> None:
+            self._health = new_health
