@@ -20,12 +20,14 @@ class Usuario(Base):
     email: Mapped[str] = mapped_column(String(100), nullable=False)
     senha: Mapped[str] = mapped_column(String(100), nullable=False)
     criado_em: Mapped[datetime.datetime] = mapped_column(
-        DateTime, default=datetime.datetime.now(datetime.UTC)
+        DateTime, default=datetime.datetime.now(datetime.UTC),
+        nullable=True
     )
     atualizado_em: Mapped[datetime.datetime] = mapped_column(
         DateTime,
         default=datetime.datetime.now(datetime.UTC),
-        onupdate=datetime.datetime.now(datetime.UTC)
+        onupdate=datetime.datetime.now(datetime.UTC),
+        nullable=True
     )
 
     # Aqui criamos um atributo do tipo relationship. Esse atributo existirá apenas em tempo de execução, ou seja, ele não será criado fisicamente na tabela de usuarios. Criando esse atributo, é possível fazer a chamada usuario.perfil.nome. 
