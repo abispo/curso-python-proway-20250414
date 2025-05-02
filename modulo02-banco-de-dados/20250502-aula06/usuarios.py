@@ -72,10 +72,12 @@ def selecionar_usuarios():
     usuarios = session.execute(comando).scalars().all()
 
     for usuario in usuarios:
-        perfil = session.scalars(
-            select(Perfil).where(Perfil.id == usuario.id)
-        ).one()
+        # Como utilizamos atributos relationship nas models, essa consulta é feita implicitamente quando chamamos o atributo.
+        # perfil = session.scalars(
+        #     select(Perfil).where(Perfil.id == usuario.id)
+        # ).one()
+
         print('*'*20)
         print(f"Email: {usuario.email}")
-        print(f"Nome: {perfil.nome}")
-        print(f"Data de Nascimento: {perfil.data_de_nascimento.strftime("%d/%m/%Y")}")
+        print(f"Nome: {usuario.perfil.nome}")
+        print(f"Data de Nascimento: {usuario.perfil.data_de_nascimento.strftime("%d/%m/%Y")}")

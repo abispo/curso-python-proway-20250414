@@ -5,7 +5,7 @@ Nesse projeto, iremos criar a mesma estrutura de tabelas que criamos no na aula 
 """
 import datetime
 from sqlalchemy import Date, ForeignKey, Integer, String
-from sqlalchemy.orm import Mapped, mapped_column
+from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from config import Base
 
@@ -19,6 +19,9 @@ class Usuario(Base):
     id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)
     email: Mapped[str] = mapped_column(String(100), nullable=False)
     senha: Mapped[str] = mapped_column(String(100), nullable=False)
+
+    # Aqui criamos um atributo do tipo relationship. Esse atributo existirá apenas em tempo de execução, ou seja, ele não será criado fisicamente na tabela de usuarios. Criando esse atributo, é possível fazer a chamada usuario.perfil.nome. 
+    perfil: Mapped["Perfil"] = relationship(back_populates="usuario")
 
     def __str__(self):
         return f"<Usuario({self.email})>"
@@ -35,6 +38,9 @@ class Perfil(Base):
     id: Mapped[int] = mapped_column(Integer, ForeignKey("usuarios.id"), primary_key=True)
     nome: Mapped[str] = mapped_column(String(100), nullable=False)
     data_de_nascimento: Mapped[datetime.date] = mapped_column(Date)
+
+    # A mesma coisa que Usuario, porém aqui estamos criando o atributo usuario na entidade Perfil.
+    usuario: Mapped["Usuario"] = relationship(back_populates="perfil")
 
     def __str__(self):
         return f"<Perfil({self.nome})>"
