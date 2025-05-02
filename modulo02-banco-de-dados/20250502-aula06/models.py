@@ -4,7 +4,7 @@ Uma model nada mais é do que uma classe que está sendo mapeada para uma tabela
 Nesse projeto, iremos criar a mesma estrutura de tabelas que criamos no na aula 2 do módulo de banco de dados (tabelas e seus relacionamentos)
 """
 import datetime
-from sqlalchemy import Date, ForeignKey, Integer, String
+from sqlalchemy import Date, DateTime, ForeignKey, Integer, String
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from config import Base
@@ -19,6 +19,14 @@ class Usuario(Base):
     id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)
     email: Mapped[str] = mapped_column(String(100), nullable=False)
     senha: Mapped[str] = mapped_column(String(100), nullable=False)
+    criado_em: Mapped[datetime.datetime] = mapped_column(
+        DateTime, default=datetime.datetime.now(datetime.UTC)
+    )
+    atualizado_em: Mapped[datetime.datetime] = mapped_column(
+        DateTime,
+        default=datetime.datetime.now(datetime.UTC),
+        onupdate=datetime.datetime.now(datetime.UTC)
+    )
 
     # Aqui criamos um atributo do tipo relationship. Esse atributo existirá apenas em tempo de execução, ou seja, ele não será criado fisicamente na tabela de usuarios. Criando esse atributo, é possível fazer a chamada usuario.perfil.nome. 
     perfil: Mapped["Perfil"] = relationship(back_populates="usuario")
