@@ -81,3 +81,4 @@ def selecionar_usuarios():
         print(f"Email: {usuario.email}")
         print(f"Nome: {usuario.perfil.nome}")
         print(f"Data de Nascimento: {usuario.perfil.data_de_nascimento.strftime("%d/%m/%Y")}")
+        print(f"Quantidade de postagens: {len(usuario.postagens)}")

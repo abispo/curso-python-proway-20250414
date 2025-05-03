@@ -4,7 +4,8 @@ from models import *
 from usuarios import gerenciar_usuarios
 
 if __name__ == "__main__":
-    Base.metadata.create_all(connection)
+    # Como estamos utilizando o alembic para controlar as alterações no nosso banco de dados, a linha abaixo não é mais necessária
+    # Base.metadata.create_all(connection)
 
     while True:
         
