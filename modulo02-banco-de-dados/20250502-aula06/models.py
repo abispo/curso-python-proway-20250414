@@ -84,6 +84,7 @@ class Postagem(Base):
 
     usuario: Mapped["Usuario"] = relationship(back_populates="postagens")
     categorias: Mapped[List["Categoria"]] = relationship(back_populates="postagens", secondary=postagens_categorias)
+    comentarios: Mapped[List["Comentario"]] = relationship(back_populates="postagem")
 
     def __str__(self):
         return f"<Postagem({self.titulo})>"
@@ -122,7 +123,7 @@ class Comentario(Base):
     )
 
     usuario: Mapped["Usuario"] = relationship(back_populates="comentarios")
-    postagem: Mapped["Postagem"] = relationship(back_populates="postagem")
+    postagem: Mapped["Postagem"] = relationship(back_populates="comentarios")
 
     def __str__(self):
         return f"<Comentario({self.texto[:50]}...)>"

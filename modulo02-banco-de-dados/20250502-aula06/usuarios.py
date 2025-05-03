@@ -23,7 +23,7 @@ def gerenciar_usuarios():
                 selecionar_usuarios()
 
             case 4:
-                pass
+                atualizar_usuario()
 
             case 5:
                 pass
@@ -82,3 +82,27 @@ def selecionar_usuarios():
         print(f"Nome: {usuario.perfil.nome}")
         print(f"Data de Nascimento: {usuario.perfil.data_de_nascimento.strftime("%d/%m/%Y")}")
         print(f"Quantidade de postagens: {len(usuario.postagens)}")
+
+
+def atualizar_usuario():
+    email = input("Informe o e-mail do usuário: ")
+
+    consulta = select(Usuario).where(Usuario.email == email)
+
+    usuario: Usuario | None = session.execute(consulta).scalars().one_or_none()
+
+    if not usuario:
+        print(f"O usuário com o e-mail {email} não foi encontrado!")
+        return
+
+    novo_email = input("Informe o novo e-mail de Elaine (ENTER para manter): ")
+    novo_nome = input("Informe o novo nome de Elaine (ENTER para manter): ")
+    nova_data_de_nascimento = input(
+        "Informe a nova data de nascimento de Elaine no formato dd/mm/YYYY (ENTER para manter): "
+    )
+
+    usuario.email = novo_email if len(novo_email) > 0 else usuario.email
+    usuario.perfil.nome = novo_nome if len(novo_nome) > 0 else usuario.perfil.nome
+    usuario.perfil.data_de_nascimento = datetime.strptime(nova_data_de_nascimento, "%d/%m/%Y").date() if len(nova_data_de_nascimento) > 0 else usuario.perfil.data_de_nascimento
+
+    print(f"Usuario {email} atualizado com sucesso!")
