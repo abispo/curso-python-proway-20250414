@@ -42,6 +42,7 @@ class Usuario(Base):
     # Aqui criamos um atributo do tipo relationship. Esse atributo existirá apenas em tempo de execução, ou seja, ele não será criado fisicamente na tabela de usuarios. Criando esse atributo, é possível fazer a chamada usuario.perfil.nome. 
     perfil: Mapped["Perfil"] = relationship(back_populates="usuario")
     postagens: Mapped[List["Postagem"]] = relationship(back_populates="usuario")
+    comentarios: Mapped["Comentario"] = relationship(back_populates="usuario")
 
     def __str__(self):
         return f"<Usuario({self.email})>"
@@ -105,3 +106,26 @@ class Categoria(Base):
     
     def __repr__(self):
         return f"<Categoria({self.nome})>"
+    
+
+class Comentario(Base):
+
+    __tablename__ = "comentarios"
+
+    id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)
+    usuario_id: Mapped[int] = mapped_column(Integer, ForeignKey("usuarios.id"), nullable=False)
+    postagem_id: Mapped[int] = mapped_column(Integer, ForeignKey("postagens.id"), nullable=False)
+    texto: Mapped[str] = mapped_column(String(200), nullable=False)
+    criado_em: Mapped[datetime.datetime] = mapped_column(
+        DateTime,
+        default=datetime.datetime.now(datetime.UTC)
+    )
+
+    usuario: Mapped["Usuario"] = relationship(back_populates="comentarios")
+    postagem: Mapped["Postagem"] = relationship(back_populates="postagem")
+
+    def __str__(self):
+        return f"<Comentario({self.texto[:50]}...)>"
+    
+    def __repr__(self):
+        return f"<Comentario({self.texto[:50]}...)>"
