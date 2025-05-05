@@ -1,6 +1,6 @@
 from datetime import datetime
 
-from sqlalchemy import select
+from sqlalchemy import select, text
 
 from config import session
 from mensagens import MENU_USUARIOS
@@ -26,7 +26,7 @@ def gerenciar_usuarios():
                 atualizar_usuario()
 
             case 5:
-                pass
+                apagar_usuario()
 
             case _:
                 print(f"Opção '{opcao}' inválida")
@@ -109,3 +109,33 @@ def atualizar_usuario():
     session.commit()
 
     print(f"Usuario {email} atualizado com sucesso!")
+
+
+def apagar_usuario():
+    
+    email = input("Informe o e-mail do usuário a ser excluído: ")
+
+    # A função text do SQLAlchemy permite que executemos código SQL diretamente. No caso abaixo, além do código SQL, definimos o parâmetro :email_Usuario, que será substituído pelo e-mail informado pelo terminal
+    # comando = text("SELECT id, email, senha, criado_em, atualizado_em FROM usuarios WHERE email = :email_usuario")
+
+    # No método execute, após o comando, passamos um dicionário com os parâmetros e os valores que serão substituídos na consulta. Caso queiramos, podemos utilizar o método fetchone() após o execute() para retornar apenas 1 registro
+    # consulta = session.execute(comando, {"email_usuario": email}).fetchone()
+
+    # Nesse outro caso utilizamos o método mappings() que irá mapear os resultados em uma lista de dicionários. Como utilizamos o first(), ele irá trazer apenas o primeiro resultado
+    # consulta = session.execute(comando, {"email_usuario": email}).mappings().first()
+
+    # Após isso, instanciamos a classe Usuario, passando os valores consultados.
+    # usuario: Usuario | None = Usuario(**consulta)
+
+    consulta = select(Usuario).where(Usuario.email == email)
+
+    usuario: Usuario | None = session.scalars(consulta).one_or_none() 
+
+    if not usuario:
+        print(f"O usuário com o e-mail '{email}' não foi encontrado.")
+
+    session.delete(usuario.perfil)
+    session.delete(usuario)
+    session.commit()
+
+    print(f"O usuário '{email}` foi removido com sucesso!")
