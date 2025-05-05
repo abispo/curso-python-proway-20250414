@@ -42,7 +42,7 @@ class Usuario(Base):
     # Aqui criamos um atributo do tipo relationship. Esse atributo existirá apenas em tempo de execução, ou seja, ele não será criado fisicamente na tabela de usuarios. Criando esse atributo, é possível fazer a chamada usuario.perfil.nome. 
     perfil: Mapped["Perfil"] = relationship(back_populates="usuario")
     postagens: Mapped[List["Postagem"]] = relationship(back_populates="usuario")
-    comentarios: Mapped["Comentario"] = relationship(back_populates="usuario")
+    comentarios: Mapped[List["Comentario"]] = relationship(back_populates="usuario")
 
     def __str__(self):
         return f"<Usuario({self.email})>"

@@ -89,7 +89,7 @@ def atualizar_usuario():
 
     consulta = select(Usuario).where(Usuario.email == email)
 
-    usuario: Usuario | None = session.execute(consulta).scalars().one_or_none()
+    usuario: Usuario | None = session.scalars(consulta).one_or_none()
 
     if not usuario:
         print(f"O usuário com o e-mail {email} não foi encontrado!")
