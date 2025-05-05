@@ -95,14 +95,17 @@ def atualizar_usuario():
         print(f"O usuário com o e-mail {email} não foi encontrado!")
         return
 
-    novo_email = input("Informe o novo e-mail de Elaine (ENTER para manter): ")
-    novo_nome = input("Informe o novo nome de Elaine (ENTER para manter): ")
+    novo_email = input(f"Informe o novo e-mail de '{usuario.perfil.nome}' (ENTER para manter): ")
+    novo_nome = input(f"Informe o novo nome de '{usuario.perfil.nome}' (ENTER para manter): ")
     nova_data_de_nascimento = input(
-        "Informe a nova data de nascimento de Elaine no formato dd/mm/YYYY (ENTER para manter): "
+        f"Informe a nova data de nascimento de '{usuario.perfil.nome}' no formato dd/mm/YYYY (ENTER para manter): "
     )
 
     usuario.email = novo_email if len(novo_email) > 0 else usuario.email
     usuario.perfil.nome = novo_nome if len(novo_nome) > 0 else usuario.perfil.nome
     usuario.perfil.data_de_nascimento = datetime.strptime(nova_data_de_nascimento, "%d/%m/%Y").date() if len(nova_data_de_nascimento) > 0 else usuario.perfil.data_de_nascimento
+
+    session.add(usuario)
+    session.commit()
 
     print(f"Usuario {email} atualizado com sucesso!")
