@@ -1,15 +1,15 @@
 from datetime import datetime
 
-from sqlalchemy import select, text
+from sqlalchemy import select
 
 from config import session
-from mensagens import MENU_USUARIOS
-from models import Usuario, Perfil
+from mensagens import MENU_POSTAGENS
+from models import Usuario, Postagem, Categoria
 
-def gerenciar_usuarios():
+def gerenciar_postagens():
     
     while True:
-        print(MENU_USUARIOS)
+        print(MENU_POSTAGENS)
         opcao = int(input("Informe a opção escolhida: "))
 
         match opcao:
@@ -17,54 +17,57 @@ def gerenciar_usuarios():
                 break
 
             case 2:
-                cadastrar_usuario()
+                cadastrar_postagem()
 
             case 3:
-                selecionar_usuarios()
+                selecionar_postagens()
 
             case 4:
-                atualizar_usuario()
+                atualizar_postagem()
 
             case 5:
-                apagar_usuario()
+                apagar_postagem()
 
             case _:
                 print(f"Opção '{opcao}' inválida")
 
 
-def cadastrar_usuario():
+def cadastrar_postagem():
 
-    # Pedimos as informações de usuário
     email = input("Informe o e-mail do usuário: ")
-    senha = input("Informe a senha do usuário: ")
-    nome = input("Informe o nome do usuário: ")
-    data_de_nascimento = input("Informe a data de nascimento (dd/mm/yyyy): ")
 
-    # Instanciamos a classe Usuario passando o e-mail e a senha
-    usuario = Usuario(email=email, senha=senha)
+    consulta = select(Usuario).where(Usuario.email == email)
+    usuario = session.scalars(consulta).one_or_none()
 
-    # Adicionamos esse objeto na sessão. Ele ficará "enfileirado", até confirmarmos a transação
-    session.add(usuario)
+    if not usuario:
+        print(f"O usuário '{email}' não foi encontrado.")
+        return
 
-    # Confirmamos a transação com o commit(). Todas as operações que estiverem pendentes na sessão, serão executadas
+    titulo = input("Informe o título da postagem: ")
+    texto = input("Informe o texto da postagem: ")
+    lista_categorias = input("Informe as categorias dessa postagem (separadas por vírgula): ").replace(
+        " ", ""
+    ).split(",")
+
+    categorias = []
+    for item_categoria in lista_categorias:
+        categoria = session.scalars(select(Categoria).where(Categoria.nome == item_categoria)).one_or_none()
+        
+        if not categoria:
+            categoria = Categoria(nome=item_categoria)
+            session.add(categoria)
+            session.commit()
+        
+        categorias.append(categoria)
+
+   
+    postagem = Postagem(usuario=usuario, titulo=titulo, texto=texto, categorias=categorias)
+    session.add(postagem)
     session.commit()
 
-    # A partir de usuario, criamos o perfil desse usuario
-    perfil = Perfil(
-        id=usuario.id,
-        nome=nome,
-        data_de_nascimento=datetime.strptime(
-            data_de_nascimento, "%d/%m/%Y"      # Aqui convertemos a string em uma data
-        ).date()
-    )
+    print(f"A Postagem '{postagem.titulo}' foi cadastrada com sucesso!")
 
-    # Adicionamos o perfil à sessão e depois confirmamos a transação
-    session.add(perfil)
-    session.commit()
-
-    print(f"Usuário {perfil.nome}({usuario.email}) cadastrado com sucesso!")
-
-def selecionar_usuarios():
+def selecionar_postagens():
 
     # Aqui utilizamos a função select para selecionar os dados da tabela. Como parâmetro, passamos a model que está mapeada para a tabela que desejamos consultar. No caso abaixo, não estamos utilizando nenhum filtro, ou seja, trará todas as linhas da tabela.
     comando = select(Usuario)
@@ -84,7 +87,7 @@ def selecionar_usuarios():
         print(f"Quantidade de postagens: {len(usuario.postagens)}")
 
 
-def atualizar_usuario():
+def atualizar_postagem():
     email = input("Informe o e-mail do usuário: ")
 
     consulta = select(Usuario).where(Usuario.email == email)
@@ -111,7 +114,7 @@ def atualizar_usuario():
     print(f"Usuario {email} atualizado com sucesso!")
 
 
-def apagar_usuario():
+def apagar_postagem():
     
     email = input("Informe o e-mail do usuário a ser excluído: ")
 

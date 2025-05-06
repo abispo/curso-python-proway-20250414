@@ -1,6 +1,7 @@
 from config import connection, Base
 from mensagens import MENU_PRINCIPAL
 from models import *
+from postagens import gerenciar_postagens
 from usuarios import gerenciar_usuarios
 
 if __name__ == "__main__":
@@ -21,7 +22,7 @@ if __name__ == "__main__":
                 gerenciar_usuarios()
 
             case 3:
-                pass
+                gerenciar_postagens()
 
             case 4:
                 pass
